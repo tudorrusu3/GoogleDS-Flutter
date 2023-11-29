@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const AudioApp());
@@ -18,19 +18,18 @@ class AudioApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  final List<String> words = [
+  HomePage({super.key});
+  final List<String> words = <String>[
     'buna',
     'hello',
     'cum esti',
     'how are you',
     'sunt bine',
-    'I\'m fine',
+    "I'm fine",
     'Eu sunt Tudor',
     'I am Tudor'
   ];
   final AudioPlayer audioPlayer = AudioPlayer();
-
-  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +47,7 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 4.0,
             ),
             itemCount: words.length,
-            itemBuilder: (context, index) {
+            itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                   onTap: () {
                     playAudio(index);
@@ -60,7 +59,7 @@ class HomePage extends StatelessWidget {
                         gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [Colors.blue, Colors.purple],
+                          colors: <Color>[Colors.blue, Colors.purple],
                         ),
                         borderRadius: BorderRadius.circular(8.0),
                       ),
@@ -72,8 +71,8 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  final player = AudioCache(prefix: 'assets/');
-  final List<String> audioList = [
+  final AudioCache player = AudioCache();
+  final List<String> audioList = <String>[
     'Buna.mp3',
     'hello.mp3',
     'Cum_esti.mp3',
@@ -84,7 +83,7 @@ class HomePage extends StatelessWidget {
     'I_am_Tudor.mp3'
   ];
 
-  void playAudio(int i) async {
+  Future<void> playAudio(int i) async {
     audioPlayer.audioCache = player;
     await audioPlayer.play(AssetSource(audioList[i]));
   }
